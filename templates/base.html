@@ -1,0 +1,45 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>{% block title %}Рецепты{% endblock title %} | Foodgram</title>
+        
+        {% block css %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock css %}
+    </head>
+    <body class="body">
+
+        <header class="header">{% include 'include/nav.html' %}</header>
+
+        <main class="main container">
+            {% block header %}
+                <div class="main__header">
+                    <h1 class="main__title">{% block header_title %}Рецепты{% endblock header_title %}</h1>
+                    {% block tags %}{% endblock tags %}
+                </div>
+            {% endblock header %}
+
+            {% block content %}{% endblock content %}
+
+            {% if page.has_other_pages %}
+                {% include 'include/paginator.html' with page=page paginator=paginator%}
+            {% endif %}
+        </main>
+
+        <footer class="footer">{% include 'include/footer.html' %}</footer>
+
+        {% block base_scripts %}
+            <script src="{% static 'js/config/config.js' %}"></script>
+            <script src="{% static 'js/api/Api.js' %}"></script>
+            <script src="{% static 'js/components/Purchases.js' %}"></script>
+            <script src="{% static 'js/components/MainCards.js' %}"></script>
+            <script src="{% static 'js/components/Header.js' %}"></script>
+        {% endblock base_scripts %}
+
+        {% block scripts %}
+        {% endblock scripts %}
+    </body>
+</html>

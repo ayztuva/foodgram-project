@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models import Ingredient, Recipe, RecipeIngredient, Tag
+from .models import (Ingredient, Recipe, 
+                    RecipeIngredient, Tag, 
+                    Favorite, Purchase)
 
 
 class IngredientAdmin(admin.ModelAdmin):
@@ -9,27 +11,38 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = (
-        'title',
-        'author',
-        'pub_date',
-        'slug',
-        'text',
-        'cooking_time',
-    )
+    def count_favorites(self, obj):
+        return obj.in_favorites.count()
+    
+    count_favorites.short_description = 'favorites'
+
+    list_display = ('pk', 'title', 'author', 'count_favorites')
     search_fields = ('title', 'author', 'slug')
     list_filter = ('pub_date',)
 
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
-    list_display = ('recipe', 'ingredient', 'quantity')
+    list_display = ('pk', 'recipe', 'ingredient', 'quantity')
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug')
+    list_display = ('pk', 'title', 'slug', 'color')
+
+
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'recipe', 'user')
+
+class PurchaseAdmin(admin.ModelAdmin):
+    def count_purchares(self, obj):
+        return obj.recipes.count()
+    count_purchares.short_description = 'purchares'
+
+    list_display = ('pk', 'user', 'count_purchares')
 
 
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Favorite, FavoriteAdmin)
+admin.site.register(Purchase, PurchaseAdmin)

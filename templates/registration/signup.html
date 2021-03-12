@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load user_filters %}
+
+{% block title %}Войти на сайт{% endblock title %} 
+{% block css %}<link rel="stylesheet" href="{% static 'pages/form.css' %}">{% endblock css %}
+{% block header_title %}Зарегистрироваться{% endblock header_title %}
+{% block tags %}{% endblock tags %}
+
+{% block content %}
+    <div class="form-container">
+        <form class="form" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form__group">
+                    <label for="{{ field.id_for_label }}" class="form__label">{{ field.label }}</label>
+                    <div class="form__field-group">
+                        {{ field|addclass:"form__input" }}
+                        {% if field.error %}
+                            <span class="form__error">{{ error|escape }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="form__footer">
+                <button class="button button_style_blue">Создать аккаунт</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block base_javascript %}{% endblock base_javascript %}

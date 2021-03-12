@@ -13,6 +13,7 @@ class User(AbstractUser):
     role =  models.CharField(
         default=Role.USER, choices=Role.choices, max_length=8)
 
+
     @property
     def is_admin(self):
         return self.role == self.Role.ADMIN or self.is_superuser
@@ -29,6 +30,8 @@ class Follow(models.Model):
             models.UniqueConstraint(
                 fields=('author', 'user'), name='unique_following')
         ]
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
     
     def __str__(self):
         return f'user: {self.user.username}, author: {self.author.username}'
