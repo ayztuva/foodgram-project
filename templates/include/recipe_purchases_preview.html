@@ -1,0 +1,12 @@
+{% load thumbnail %}
+
+<li class="shopping-list__item" data-id="{{ recipe.pk }}">
+    <div class="recipe recipe_reverse">
+        {% thumbnail recipe.image "500x500" crop="center" upscale=False as im %}
+            <img src="{{ im.url }}" alt="{{ recipe.title }}" class="recipe__image recipe__image_big">
+        {% endthumbnail %}
+        <h3 class="recipe__title">{{ recipe.title }}</h3>
+        <p class="recipe__text"><span class="icon-time"></span> <small>{{ recipe.cooking_time }} мин.</small></p>
+    </div>
+    <a href="#" class="shopping-list__button link">Удалить</a>
+</li>

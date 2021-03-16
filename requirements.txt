@@ -1,7 +1,12 @@
 asgiref==3.3.1
 Django==3.1.6
+django-filter==2.4.0
 djangorestframework==3.12.2
+gunicorn==20.0.4
 Pillow==8.1.0
+psycopg2-binary==2.8.6
+python-dotenv==0.15.0
 pytz==2021.1
+reportlab==3.5.65
 sorl-thumbnail==12.7.0
 sqlparse==0.4.1

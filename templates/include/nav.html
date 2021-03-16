@@ -1,14 +1,23 @@
+{% load user_filters %}
+
 <nav class="nav">
     <div class="nav__container container">
         {% with url=request.resolver_match.url_name %}
         <ul class="nav__items list">
             <li class="nav__item {% if url == 'index' %}nav__item_active{% endif %}"><a href="/" class="nav__link link">Рецепты</a></li>
             {% if user.is_authenticated %}
-                <li class="nav__item"><a href="#" class="nav__link link">Мои подписки</a></li>
-                <li class="nav__item"><a href="#" class="nav__link link">Создать рецепт</a></li>
-                <li class="nav__item"><a href="#" class="nav__link link">Избранное</a></li>
+                <li class="nav__item {% if url == 'follow' %}nav__item_active{% endif %}"><a href="{% url 'recipes:follow' %}" class="nav__link link">Мои подписки</a></li>
+                <li class="nav__item {% if url == 'new' %}nav__item_active{% endif %}"><a href="{% url 'recipes:new' %}" class="nav__link link">Создать рецепт</a></li>
+                <li class="nav__item {% if url == 'favorites' %}nav__item_active{% endif %}"><a href="{% url 'recipes:favorites' %}" class="nav__link link">Избранное</a></li>
             {% endif %}
-            <li class="nav__item {% if not user.is_authenticated %}nav__item_disabled{% elif url == 'purchases' %}nav__item_active{% endif %}"><a href="#" class="nav__link link">Список покупок <span class="badge badge_style_blue nav__badge" id="counter">4</span></a></li>
+            <li class="nav__item {% if user.is_anonymous %}nav__item_disabled{% elif url == 'purchases' %}nav__item_active{% endif %}">
+                <a href="{% url 'recipes:purchases' %}" class="nav__link link">
+                    Список покупок 
+                    {% if user.is_authenticated %}
+                        <span class="badge badge_style_blue nav__badge" id="counter">{% get_purchases_count %}</span>
+                    {% endif %}
+                </a>
+            </li>
         </ul>   
         <ul class="nav__items list">
             {% if user.is_authenticated %}

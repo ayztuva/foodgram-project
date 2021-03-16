@@ -1,7 +1,9 @@
 import os
-
 from pathlib import Path
+
 from dotenv import load_dotenv
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 load_dotenv()
 
@@ -24,6 +26,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'recipes',
     'users',
+    'api',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'sorl.thumbnail',
+    'django_filters',
     'rest_framework',
 ]
 
@@ -91,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
@@ -109,9 +112,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+pdfmetrics.registerFont(
+    TTFont(
+        'Montserrat',
+        os.path.join(STATIC_ROOT, 'fonts/Montserrat-Regular.ttf'),
+    )
+)
+
 LOGIN_URL = '/auth/login/'
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'recipes:index'
+LOGOUT_REDIRECT_URL = 'recipes:index'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')

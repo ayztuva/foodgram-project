@@ -1,0 +1,33 @@
+{% load static %}
+{% load user_filters %}
+
+<div class="card" data-id="{{ recipe.pk }}">
+    <a href="{% url 'recipes:recipe' username=recipe.author.username pk=recipe.id %}" class="link" target="_blank">
+        {% load thumbnail %}
+        {% thumbnail recipe.image "364x240" crop="center" upscale=True as im %}
+            <img src="{{ im.url }}" alt="{{ recipe.title }}" class="card__image">
+        {% endthumbnail %}
+    </a>
+    <div class="card__body">
+        <a class="card__title link" href="{% url 'recipes:recipe' username=recipe.author.username pk=recipe.id %}" target="_blank">{{ recipe.title }}</a>
+        <ul class="card__items">
+            {% for tag in recipe.tags.all %}
+            <li class="card__item"><span class="badge badge_style_{{ tag.color }}">{{ tag.title }}</span></li>
+            {% endfor %}
+        </ul>
+        <div class="card__items card__items_column">
+            <p class="card__text"><span class="icon-time"></span> {{ recipe.cooking_time }} мин.</p>
+            <p class="card__text"><span class="icon-user"></span> 
+                <a href="{% url 'recipes:profile' username=recipe.author.username %}" style="color: black">{{ recipe.author.get_full_name|default:recipe.author.username }}</a>
+            </p>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        {% is_purchase as purchase_flag %}
+        {% is_favorite as favorite_flag %}    
+        <div class="card__footer">
+            {% include 'include/button_purchase.html' with flag=purchase_flag %}
+            {% include 'include/button_favorite.html' with flag=favorite_flag %}
+        </div>
+    {% endif %}
+</div>

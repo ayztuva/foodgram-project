@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
@@ -8,7 +7,7 @@ User = get_user_model()
 
 class Ingredient(models.Model):
     title = models.CharField(max_length=200)
-    units = models.CharField(max_length=12)
+    dimension = models.CharField(max_length=12)
 
     class Meta:
         ordering = ('title',)
@@ -20,7 +19,7 @@ class Ingredient(models.Model):
         for obj in ingredients:
             ingredient, created = cls.objects.get_or_create(
                 title=obj.get('title'),
-                units=obj.get('dimension')
+                dimension=obj.get('dimension')
             )
 
     def __str__(self):
@@ -36,7 +35,6 @@ class Recipe(models.Model):
     )
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, unique=True)
     cooking_time = models.PositiveIntegerField(
         verbose_name=_('Cooking time (minutes)'))
     ingredients = models.ManyToManyField(
@@ -44,7 +42,7 @@ class Recipe(models.Model):
         through='RecipeIngredient'
     )
     tags = models.ManyToManyField('Tag', blank=True, related_name='recipes')
-    image = models.ImageField(blank=True, upload_to='media/recipes/')
+    image = models.ImageField(blank=True, upload_to='recipes/')
 
     class Meta:
         verbose_name = _('recipe')
@@ -55,10 +53,9 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.DecimalField(
-        decimal_places=1, max_digits=6, validators=(MinValueValidator(1),))
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
 
     class Meta:
         constraints = [
@@ -106,7 +103,7 @@ class Favorite(models.Model):
         ]
         verbose_name = _('favorite')
         verbose_name_plural = _('favorites')
-    
+
     def __str__(self):
         return f'{self.recipe.title} is {self.user.username} favorite'
 
@@ -120,7 +117,7 @@ class Purchase(models.Model):
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name='purchases',
+        related_name='in_purchases',
     )
 
     class Meta:
@@ -134,4 +131,4 @@ class Purchase(models.Model):
         verbose_name_plural = _('purchases')
 
     def __str__(self):
-        return f'{self.user.username} --> {self.recipe.name}'
+        return f'{self.user.username} --> {self.recipe.title}'

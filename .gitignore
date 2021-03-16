@@ -130,3 +130,9 @@ dmypy.json
 
 # vscode
 .vscode/
+
+# static and media
+static/*
+media/*
+!static/.gitkeep
+!media/.gitkeep

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}{% endblock header %}
+{% block tags %}{% endblock tags %}
+
+{% block content %}
+    <div class="custom-center-block">
+        <p class="custom-text-block">Вы действительно хотите удалить рецепт "{{ object }}"?</p>
+        <div class="custom-button-block">
+            <form method="post">
+                {% csrf_token %}
+                <button class="button button_style_blue" type="submit">Да</button>
+                <a href="{% url 'recipes:purchases' %}" class="button">Назад к списку покупок</a></li>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

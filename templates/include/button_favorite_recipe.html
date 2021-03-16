@@ -1,0 +1,14 @@
+{% load user_filters %}
+
+{% if user.is_authenticated %}
+    {% is_favorite as is_favorite_flag %}
+    {% if is_favorite_flag %}
+        <div class="single-card__favorite">
+            <button class="button button_style_none" name="favorites"><span class="icon-favorite icon-favorite_big icon-favorite_active"></span></button>
+        </div>
+    {% else %}
+        <div class="single-card__favorite">
+            <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_big"></span></button>
+        </div>
+    {% endif %}
+{% endif %}

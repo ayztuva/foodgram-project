@@ -20,3 +20,4 @@ const myFollow = new MyFollow(container, '.card-user', header, api, true,{
     subscribe
 })
 myFollow.addEvent();
+

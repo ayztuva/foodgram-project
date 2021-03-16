@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'pages/single.css' %}">{% endblock css %}
+{% block header %}{% endblock header %}
+
+{% block content %}
+    <div class="single-card" data-id="{{ recipe.id }}" data-author="{{ recipe.author.id }}">
+        {% thumbnail recipe.image "500x500" crop="center" upscale=True as im %}
+            <img src="{{ im.url }}" alt="{{ recipe.title }}" class="single-card__image">
+        {% endthumbnail %}
+        <div class="single-card__info">
+            <div class="single-card__header-info">
+                <h1 class="single-card__title">{{ recipe.title }}</h1>
+                {% include 'include/button_favorite_recipe.html' %}
+            </div>
+            <ul class="single-card__items">
+                {% for tag in recipe.tags.all %}
+                    <li class="single-card__item"><span class="badge badge_style_{{ tag.color }}">{{ tag.title }}</span></li>
+                {% endfor %}
+            </ul>
+            <div class="single-card__items single-card__items_column">
+                <p class="single-card__text"><span class="icon-time"></span> {{ recipe.cooking_time }} мин.</p>
+                {% if user.is_authenticated %}
+                    <ul class="single-card__items">
+                        <li class="single-card__item">
+                            <p class="single-card__text">
+                                <span class="icon-user"></span> 
+                                <a href="{% url 'recipes:profile' username=recipe.author.username %}" style="color: black">{{ recipe.author.get_full_name|default:recipe.author.username }}</a>
+                            </p>
+                        </li>
+                        {% if recipe.author == request.user or request.user.is_admin %}
+                            <li class="single-card__item"><a style="margin-left: 2.5em" href="{% url 'recipes:recipe_edit' username=recipe.author.username pk=recipe.pk %}" class="single-card__text">Редактировать рецепт</a></li>
+                        {% endif %}
+                    </ul>
+                {% else %}
+                    <p class="single-card__text">
+                        <span class="icon-user"></span> 
+                        <a href="{% url 'recipes:profile' username=recipe.author.username %}" style="color: black">{{ recipe.author.get_full_name|default:recipe.author.username }}</a>
+                    </p>
+                {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+                <ul class="single-card__items">
+                    {% load user_filters %}
+                    {% is_purchase as is_purchase_flag %}
+                    <li class="single-card__item">
+                        {% include 'include/button_purchase.html' with flag=is_purchase_flag %}
+                    </li>
+                    {% include 'include/button_subscribe.html' with author=recipe.author %}
+                </ul>
+            {% endif %}
+
+            <div class="single-card__section">
+                <h3 class="single-card__section-title">Ингридиенты:</h3>
+                <div class="single-card__items single-card__items_column">
+                    {% for ingredient in recipe.recipeingredient_set.all %}
+                        <p class=" single-card__section-item">{{ ingredient.ingredient.title }} - {{ ingredient.quantity }} {{ ingredient.ingredient.dimension }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="single-card__section">
+                <h3 class="single-card__section-title">Описание:</h3>
+                <p class=" single-card__section-text">{{ recipe.text }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'js/components/SingleCard.js' %}"></script>
+    <script src="{% static 'js/components/CardList.js' %}"></script>
+
+    {% if user.is_authenticated %}
+        <script src="{% static 'js/components/Favorites.js' %}"></script>
+        <script src="{% static 'js/components/Subscribe.js' %}"></script>
+        <script src="{% static 'singlePage.js' %}"></script>
+    {% else %}
+        <script src="{% static 'singlePageNotAuth.js' %}"></script>
+    {% endif %}
+{% endblock scripts %}
+

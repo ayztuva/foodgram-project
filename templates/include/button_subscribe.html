@@ -1,0 +1,27 @@
+{% load user_filters %}
+{% url 'recipes:profile' username=author.username as url_profile %}
+
+
+{% if user.is_authenticated and user != author %}
+    {% is_follower as following_flag %}
+    {% if request.path == url_profile %}
+        <div class="author-subscribe" data-author="{{ author.pk }}">
+            <p style="padding: 0 0 2em 0;">
+                {% if following_flag %}
+                    <button class="button button_style_light-blue button_size_subscribe" name="subscribe">Отписаться от автора</button>
+                {% else %}
+                    <button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button>
+                {% endif %}
+            </p>
+        </div>
+    {% else %}
+        {% comment %} Страница рецепта {% endcomment %}
+        <li class="single-card__item">
+            {% if following_flag %}
+                <button class="button button_style_light-blue button_size_subscribe" name="subscribe">Отписаться от автора</button>
+            {% else %}
+                <button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button>
+            {% endif %}
+        </li>
+    {% endif %}
+{% endif %}

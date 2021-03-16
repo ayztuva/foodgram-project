@@ -18,15 +18,14 @@
             {% block header %}
                 <div class="main__header">
                     <h1 class="main__title">{% block header_title %}Рецепты{% endblock header_title %}</h1>
-                    {% block tags %}{% endblock tags %}
+                    {% block tags %}
+                        {% include 'include/tags.html' %}
+                    {% endblock tags %}
                 </div>
             {% endblock header %}
 
+            {% csrf_token %}
             {% block content %}{% endblock content %}
-
-            {% if page.has_other_pages %}
-                {% include 'include/paginator.html' with page=page paginator=paginator%}
-            {% endif %}
         </main>
 
         <footer class="footer">{% include 'include/footer.html' %}</footer>

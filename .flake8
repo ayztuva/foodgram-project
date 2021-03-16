@@ -1,0 +1,10 @@
+[flake8]
+ignore = W605, W503
+exclude = 
+    venv/*,
+    tests/*,
+    api/migrations/*,
+    users/migrations/*,
+    recipes/migrations/*,
+    settings.py
+max-complexity = 10

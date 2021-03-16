@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card-list">
+        {% for recipe in page_obj %}
+            {% include 'include/recipe_card.html' %}
+        {% endfor %}
+    </div>
+    {% if page_obj.has_other_pages %}
+        {% include 'include/paginator.html' with page=page_obj paginator=paginator%}
+    {% endif %}
+{% endblock content %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/components/CardList.js' %}"></script>
+    {% if user.is_authenticated %}
+        <script src="{% static 'js/components/Favorites.js' %}"></script>
+        <script src="{% static 'indexAuth.js' %}"></script>
+    {% else %}
+        <script src="{% static 'indexNotAuth.js' %}"></script>
+    {% endif %}
+{% endblock scripts %}
+
