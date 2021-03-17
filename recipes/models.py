@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -11,8 +10,8 @@ class Ingredient(models.Model):
 
     class Meta:
         ordering = ('title',)
-        verbose_name = _('ingredient')
-        verbose_name_plural = _('ingredients')
+        verbose_name = 'ingredient'
+        verbose_name_plural = 'ingredients'
 
     @classmethod
     def fill(cls, ingredients):
@@ -36,7 +35,7 @@ class Recipe(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     cooking_time = models.PositiveIntegerField(
-        verbose_name=_('Cooking time (minutes)'))
+        verbose_name='Cooking time (minutes)')
     ingredients = models.ManyToManyField(
         Ingredient,
         through='RecipeIngredient'
@@ -45,8 +44,9 @@ class Recipe(models.Model):
     image = models.ImageField(blank=True, upload_to='recipes/')
 
     class Meta:
-        verbose_name = _('recipe')
-        verbose_name_plural = _('recipes')
+        ordering = ('-pub_date',)
+        verbose_name = 'recipe'
+        verbose_name_plural = 'recipes'
 
     def __str__(self):
         return self.title
@@ -64,19 +64,39 @@ class RecipeIngredient(models.Model):
                 name='unique_recipe_ingredient'
             )
         ]
-        verbose_name = _('recipe ingredient')
-        verbose_name_plural = _('recipe ingredients')
+        verbose_name = 'recipe ingredient'
+        verbose_name_plural = 'recipe ingredients'
 
 
 class Tag(models.Model):
-    title = models.CharField(max_length=50)
+    class TagChoices(models.TextChoices):
+        BREAKFAST = 'breakfast', 'Завтрак'
+        LUNCH = 'lunch', 'Обед'
+        DINNER = 'dinner', 'Ужин'
+
+    class ColorChoices(models.TextChoices):
+        GREEN = 'green', 'Зеленый'
+        ORANGE = 'orange', 'Оранжевый'
+        PURPLE = 'purple', 'Фиолетовый'
+
+    title = models.CharField(
+        choices=TagChoices.choices,
+        default=TagChoices.LUNCH,
+        unique=True,
+        max_length=10,
+    )
+    color = models.CharField(
+        choices=ColorChoices.choices,
+        default=ColorChoices.GREEN,
+        unique=True,
+        max_length=10,
+    )
     slug = models.SlugField(unique=True, blank=True)
-    color = models.CharField(max_length=25, default='white')
 
     class Meta:
         ordering = ('pk',)
-        verbose_name = _('tag')
-        verbose_name_plural = _('tags')
+        verbose_name = 'tag'
+        verbose_name_plural = 'tags'
 
     def __str__(self):
         return self.title
@@ -101,8 +121,8 @@ class Favorite(models.Model):
                 name='unique_favorite_recipe'
             )
         ]
-        verbose_name = _('favorite')
-        verbose_name_plural = _('favorites')
+        verbose_name = 'favorite'
+        verbose_name_plural = 'favorites'
 
     def __str__(self):
         return f'{self.recipe.title} is {self.user.username} favorite'
@@ -127,8 +147,8 @@ class Purchase(models.Model):
                 name='unique_purchase'
             ),
         ]
-        verbose_name = _('purchase')
-        verbose_name_plural = _('purchases')
+        verbose_name = 'purchase'
+        verbose_name_plural = 'purchases'
 
     def __str__(self):
         return f'{self.user.username} --> {self.recipe.title}'

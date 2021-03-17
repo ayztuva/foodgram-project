@@ -18,6 +18,7 @@ from .filters import TaggedRecipeFilterSet
 from .forms import RecipeForm
 from .permissions import AdminAuthorPermission
 from .service import generate_pdf
+from .mixins import TagContextMixin
 from .models import (
     Recipe,
     Tag,
@@ -28,19 +29,11 @@ from .models import (
 User = get_user_model()
 
 
-class IndexView(BaseFilterView, ListView):
+class IndexView(TagContextMixin, BaseFilterView, ListView):
     model = Recipe
     template_name = 'recipes/index.html'
     paginate_by = 6
     filterset_class = TaggedRecipeFilterSet
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'active_tags': self.request.GET.getlist('tags'),
-            'tags': Tag.objects.all(),
-        })
-        return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -81,20 +74,12 @@ class FavoriteView(LoginRequiredMixin, BaseFilterView, ListView):
     paginate_by = 6
     filterset_class = TaggedRecipeFilterSet
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'active_tags': self.request.GET.getlist('tags'),
-            'tags': Tag.objects.all(),
-        })
-        return context
-
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(in_favorites__user=self.request.user)
 
 
-class ProfileView(BaseFilterView, ListView):
+class ProfileView(TagContextMixin, BaseFilterView, ListView):
     model = Recipe
     template_name = 'recipes/profile.html'
     paginate_by = 6
@@ -109,8 +94,6 @@ class ProfileView(BaseFilterView, ListView):
                 is_follower = True
         context.update(
             {
-                'active_tags': self.request.GET.getlist('tags'),
-                'tags': Tag.objects.all(),
                 'user_is_follower': is_follower,
                 'author': author,
             }

@@ -4,7 +4,7 @@
     <div class="nav__container container">
         {% with url=request.resolver_match.url_name %}
         <ul class="nav__items list">
-            <li class="nav__item {% if url == 'index' %}nav__item_active{% endif %}"><a href="/" class="nav__link link">Рецепты</a></li>
+            <li class="nav__item {% if url == 'index' %}nav__item_active{% endif %}"><a href="{% url 'recipes:index' %}" class="nav__link link">Рецепты</a></li>
             {% if user.is_authenticated %}
                 <li class="nav__item {% if url == 'follow' %}nav__item_active{% endif %}"><a href="{% url 'recipes:follow' %}" class="nav__link link">Мои подписки</a></li>
                 <li class="nav__item {% if url == 'new' %}nav__item_active{% endif %}"><a href="{% url 'recipes:new' %}" class="nav__link link">Создать рецепт</a></li>

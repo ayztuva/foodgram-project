@@ -1,4 +1,3 @@
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.forms import (
@@ -20,6 +19,6 @@ class UserRegistrationForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
     username = UsernameField(
-        label=_('Имя'),
+        label='Имя',
         widget=forms.TextInput(attrs={'autofocus': True})
     )

@@ -8,8 +8,8 @@ from . import serializers
 from recipes.models import Favorite, Ingredient, Purchase
 from users.models import Follow
 
-_SUCCESS_RESPONSE = types.MappingProxyType({'success': True})
-_UNSUCCESS_RESPONSE = types.MappingProxyType({'success': False})
+SUCCESS = types.MappingProxyType({'success': True})
+UNSUCCESS = types.MappingProxyType({'success': False})
 
 
 class BaseInstanceView(
@@ -19,17 +19,16 @@ class BaseInstanceView(
 ):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            self.perform_create(serializer)
-            return Response(_SUCCESS_RESPONSE)
-        return Response(_UNSUCCESS_RESPONSE)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(SUCCESS)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         is_deleted = instance.delete()
         if is_deleted:
-            return Response(_SUCCESS_RESPONSE)
-        return Response(_UNSUCCESS_RESPONSE)
+            return Response(SUCCESS)
+        return Response(UNSUCCESS)
 
 
 class FavoriteApiView(BaseInstanceView):

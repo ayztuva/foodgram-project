@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
 
 from .models import Recipe, Tag
 from .service import add_ingredients_to_recipe
@@ -7,13 +6,13 @@ from .service import add_ingredients_to_recipe
 
 class RecipeForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(
-        label=_('Теги'),
+        label='Теги',
         queryset=Tag.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
     ingredients = forms.CharField(
         required=False,
-        label=_('Ингредиенты'),
+        label='Ингредиенты',
         widget=forms.TextInput(attrs={'id': 'nameIngredient'}),
     )
 
@@ -28,9 +27,9 @@ class RecipeForm(forms.ModelForm):
             'image',
         )
         labels = {
-            'title': _('Название рецепта'),
-            'cooking_time': _('Время приготовления'),
-            'image': _('Загрузить фото'),
+            'title': 'Название рецепта',
+            'cooking_time': 'Время приготовления',
+            'image': 'Загрузить фото',
         }
         widgets = {
             'cooking_time': forms.TextInput(),
@@ -44,13 +43,13 @@ class RecipeForm(forms.ModelForm):
             ),
         )
         if not ingredients:
-            raise forms.ValidationError(_('Отсутствуют ингредиенты'))
+            raise forms.ValidationError('Отсутствуют ингредиенты')
 
         ingredients_clean = []
         for name, quantity in ingredients:
             if int(quantity) < 1:
                 raise forms.ValidationError(
-                    _(f'Исправьте количество ингредиента "{name}"'))
+                    f'Исправьте количество ингредиента "{name}"')
             else:
                 ingredients_clean.append({
                     'title': name,

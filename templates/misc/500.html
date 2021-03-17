@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Ошибка на сервере{% endblock title %}
+{% block header %}{% endblock header %}
+
+{% block content %}
+    <div class="custom-center-block">
+        <p class="custom-text-block">Ошибка на сервере, попробуйте обновить страницу или обратиться позже</p>
+        <div class="back button_style_light-blue">
+            <a href="{% url 'recipes:index' %}" class="button button_style_blue">Перейти на главную</a>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}{% endblock scripts %}

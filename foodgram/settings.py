@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'fq3goh2&c1(fq1p^xj((_718la40qq7v6f4zwj%@4y1&js=6$i'
 
-DEBUG = True
+DEBUG = False
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -24,9 +24,10 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS = [
+    'api',
+    'flatpages',
     'recipes',
     'users',
-    'api',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -35,9 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'sorl.thumbnail',
     'django_filters',
     'rest_framework',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
