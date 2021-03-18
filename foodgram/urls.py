@@ -4,8 +4,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-handler404 = 'foodgram.errors.page_not_found'
-handler500 = 'foodgram.errors.server_error'
+handler404 = 'foodgram.errors.page_not_found'  # noqa: F811
+handler500 = 'foodgram.errors.server_error'  # noqa: F811
 
 urlpatterns = [
     path('admin/', admin.site.urls),

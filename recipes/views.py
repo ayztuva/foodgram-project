@@ -21,7 +21,6 @@ from .service import generate_pdf
 from .mixins import TagContextMixin
 from .models import (
     Recipe,
-    Tag,
     Favorite,
     Purchase,
 )

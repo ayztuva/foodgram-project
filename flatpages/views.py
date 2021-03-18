@@ -13,6 +13,7 @@ class AuthorPage(TemplateView):
         ]
     }
 
+
 class TechPage(TemplateView):
     template_name = 'flatpages/about.html'
     extra_context = {
