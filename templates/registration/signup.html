@@ -17,7 +17,9 @@
                     <div class="form__field-group">
                         {{ field|addclass:"form__input" }}
                         {% if field.error %}
-                            <span class="form__error">{{ error|escape }}</span>
+                            {% for error in field.error %}
+                                <span class="form__error">{{ error|escape }}</span>
+                            {% endfor %}
                         {% endif %}
                     </div>
                 </div>
