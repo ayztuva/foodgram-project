@@ -23,7 +23,7 @@ services:
       - mediafiles:/code/media
 
   nginx:
-    image: nginx:1.19.6
+    image: nginx:1.19.8
     depends_on:
       - web
     ports:
@@ -32,4 +32,4 @@ services:
     volumes:
       - staticfiles:/static
       - mediafiles:/media
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./host.conf:/etc/nginx/conf.d/default.conf
