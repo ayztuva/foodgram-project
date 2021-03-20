@@ -1,31 +1,26 @@
 version: '3.8'
 
 volumes:
-  postgres_volume:
-  staticfiles_volume:
-  mediafiles_volume:
+  postgres_data:
+  staticfiles:
+  mediafiles:
 
 services:
   db:
     image: postgres:12.4
     volumes:
-      - postgres_volume:/var/lib/postgresql/data/
-    env_file:
-      - ./.env
+      - postgres_data:/var/lib/postgresql/data/
+    env_file: ./.env
 
   web:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    image: ayztuva/foodgram
+    image: ayztuva/foodgram:v1
     restart: always
-    command: gunicorn foodgram.wsgi:application -b 0:8000
     depends_on: 
       - db
     env_file: ./.env
     volumes:
-      - staticfiles_volume:/static
-      - mediafiles_volume:/media
+      - staticfiles:/code/static
+      - mediafiles:/code/media
 
   nginx:
     image: nginx:1.19.6
@@ -35,6 +30,6 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - staticfiles_volume:/static
-      - mediafiles_volume:/media
+      - staticfiles:/static
+      - mediafiles:/media
+      - ./host.conf:/etc/nginx/conf.d/default.conf
