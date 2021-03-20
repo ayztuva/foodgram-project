@@ -1,4 +1,4 @@
-name: CI
+name: Foodgram CI
  
 on: [push]
 

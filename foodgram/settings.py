@@ -20,6 +20,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'web',
+    os.getenv('HOST'),
 ]
 
 INSTALLED_APPS = [

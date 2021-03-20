@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 volumes:
   postgres_data:
@@ -13,7 +13,7 @@ services:
     env_file: ./.env
 
   web:
-    image: ayztuva/foodgram:v1
+    image: ayztuva/foodgram:latest
     restart: always
     depends_on: 
       - db
