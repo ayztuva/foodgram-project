@@ -1,7 +1,8 @@
-# Yamdb
+# Foodgram
 ![example workflow name](https://github.com/ayztuva/foodgram-project/workflows/CI/badge.svg)
 
-
+## Project example
+ip address: http://178.154.200.136/
 
 ## Getting Started
 
