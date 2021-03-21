@@ -10,17 +10,17 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'fq3goh2&c1(fq1p^xj((_718la40qq7v6f4zwj%@4y1&js=6$i'
 
 DEBUG = False
 
 AUTH_USER_MODEL = 'users.User'
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
     'localhost',
-    'web',
-    os.getenv('HOST'),
+    '127.0.0.1',
+    '[::1]',
+    'testserver',
 ]
 
 INSTALLED_APPS = [
@@ -72,16 +72,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'foodgram.wsgi.application'
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -107,6 +105,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

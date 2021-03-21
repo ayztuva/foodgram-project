@@ -12,7 +12,7 @@
         <a class="card__title link" href="{% url 'recipes:recipe' username=recipe.author.username pk=recipe.id %}" target="_blank">{{ recipe.title }}</a>
         <ul class="card__items">
             {% for tag in recipe.tags.all %}
-            <li class="card__item"><span class="badge badge_style_{{ tag.color }}">{{ tag.title }}</span></li>
+                <li class="card__item"><span class="badge badge_style_{{ tag.color }}">{{ tag.get_title_display }}</span></li>
             {% endfor %}
         </ul>
         <div class="card__items card__items_column">

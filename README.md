@@ -34,7 +34,7 @@ You can simply clone that repository to your local machine, create '.env' file w
 
 Othervise follow next steps:
 
-In project directory you need to create dot-env file with next variables:
+1. In project directory you need to create dot-env file with next variables:
 
 ```
     DB_ENGINE=django.db.backends.postgresql
@@ -45,7 +45,7 @@ In project directory you need to create dot-env file with next variables:
     DB_PORT=5432
 ```
 
-Thean create docker-compose.yaml file.
+2. Then create docker-compose.yaml file.
 
 The project ('web') in 'service' should look like this:
 
@@ -64,7 +64,7 @@ The project ('web') in 'service' should look like this:
       - ./.env
 ```
 
-Then finally create your nginx settings file and name it 'host.conf'.
+3. Then finally create your nginx settings file and name it 'host.conf'.
 It should contain /static/ and /media/ locations.
 Example:
 
@@ -88,7 +88,7 @@ Example:
     }
 ```
 
-Than just run docker-compose:
+4. After all just run docker-compose:
 
 ```
     docker-compose up
