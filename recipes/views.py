@@ -67,7 +67,11 @@ class FollowView(LoginRequiredMixin, ListView):
             followers__user=self.request.user).order_by('-id')
 
 
-class FavoriteView(LoginRequiredMixin, BaseFilterView, ListView):
+class FavoriteView(
+        TagContextMixin,
+        LoginRequiredMixin,
+        BaseFilterView,
+        ListView):
     model = Recipe
     template_name = 'recipes/favorites.html'
     paginate_by = 6

@@ -13,7 +13,7 @@
     </div>
 
     {% if page_obj.has_other_pages %}
-        {% include 'include/paginator.html' with items=page_obj paginator=paginator %}
+        {% include 'include/paginator.html' with page=page_obj paginator=paginator %}
     {% endif %}
 {% endblock content %}
 

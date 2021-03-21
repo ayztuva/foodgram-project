@@ -9,6 +9,7 @@ class User(AbstractUser):
 
     email = models.EmailField(blank=False, unique=True)
     username = models.CharField(
+        'Логин',
         blank=False,
         unique=True,
         max_length=50,

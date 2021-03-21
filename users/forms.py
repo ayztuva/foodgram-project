@@ -19,6 +19,6 @@ class UserRegistrationForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
     username = UsernameField(
-        label='Имя',
+        label='Логин',
         widget=forms.TextInput(attrs={'autofocus': True})
     )
