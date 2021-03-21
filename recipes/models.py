@@ -58,12 +58,6 @@ class RecipeIngredient(models.Model):
     quantity = models.PositiveIntegerField()
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=('recipe', 'ingredient'),
-                name='unique_recipe_ingredient'
-            )
-        ]
         verbose_name = 'recipe ingredient'
         verbose_name_plural = 'recipe ingredients'
 

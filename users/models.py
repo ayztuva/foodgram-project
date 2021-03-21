@@ -8,7 +8,12 @@ class User(AbstractUser):
         ADMIN = 'ADM', 'Admin'
 
     email = models.EmailField(blank=False, unique=True)
-    username = models.CharField(blank=False, unique=True, max_length=50)
+    username = models.CharField(
+        'Логин',
+        blank=False,
+        unique=True,
+        max_length=50
+    )
     role = models.CharField(
         default=Role.USER, choices=Role.choices, max_length=8)
 
