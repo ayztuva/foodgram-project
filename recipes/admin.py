@@ -31,7 +31,7 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'slug', 'color')
+    list_display = ('pk', 'title', 'color')
 
 
 class FavoriteAdmin(admin.ModelAdmin):

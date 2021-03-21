@@ -26,7 +26,7 @@
                                             id="id_tags_{{ forloop.counter }}"
                                             class="tags__checkbox tags__checkbox_style_{{ tag.color }}"
                                             {% if tag in recipe.tags.all %}checked=""{% endif %}>
-                                    <label for="id_tags_{{ forloop.counter }}" class="tags__label">{{ tag.title }}</label>
+                                    <label for="id_tags_{{ forloop.counter }}" class="tags__label">{{ tag.get_title_display }}</label>
                                 </div>
                             {% endfor %}
                         </div>

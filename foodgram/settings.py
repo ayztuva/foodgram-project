@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'fq3goh2&c1(fq1p^xj((_718la40qq7v6f4zwj%@4y1&js=6$i'
 
-DEBUG = False
+DEBUG = True
 
 AUTH_USER_MODEL = 'users.User'
 

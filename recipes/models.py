@@ -91,7 +91,6 @@ class Tag(models.Model):
         unique=True,
         max_length=10,
     )
-    slug = models.SlugField(unique=True, blank=True)
 
     class Meta:
         ordering = ('pk',)
