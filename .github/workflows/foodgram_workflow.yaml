@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ayztuva/foodgram:latest
+          tags: evangribov/foodgram:latest
 
   deploy:
     name: Deploing the project
@@ -68,7 +68,7 @@ jobs:
           script: |
             cd ~/deploy/foodgram/
             docker-compose down
-            sudo docker pull ayztuva/foodgram
+            sudo docker pull evangribov/foodgram
             docker-compose up -d
 
   send_message:
