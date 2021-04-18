@@ -1,4 +1,4 @@
-name: CI
+name: Foodgram CI
  
 on: [push]
 
@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: evangribov/foodgram:latest
+          tags: vilagov/foodgram:latest
 
   deploy:
     name: Deploing the project
@@ -68,7 +68,7 @@ jobs:
           script: |
             cd ~/deploy/foodgram/
             docker-compose down
-            sudo docker pull evangribov/foodgram
+            sudo docker pull vilagov/foodgram:latest
             docker-compose up -d
 
   send_message:

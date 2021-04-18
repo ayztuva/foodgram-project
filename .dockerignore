@@ -1,18 +1,30 @@
+# git
 .git/*
+.github/
+
+# enviromment
 env/
 venv/
 .venv
 .venv/
 .vscode/
 
+# python
 __pycache__/
 *.py[cod]
 
+# apple
 .idea
 .DS_Store
 ._.DS_Store
 .AppleDouble
 .LSOverride
 
+# developer tools
+Makefile
+poetry.lock
+pyproject.toml
+
+# other
 *.sublime-project
 *.sublime-workspace

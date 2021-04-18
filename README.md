@@ -1,5 +1,10 @@
 # Foodgram
-![example workflow name](https://github.com/ayztuva/foodgram-project/workflows/CI/badge.svg)
+![Foodgram CI](https://github.com/vilagov/foodgram-project/workflows/Foodgram%20CI/badge.svg)
+
+## Description
+
+Foodgram is a service that allows users to publish their recipes, add other people's recipes to favorites and subscribe to publications of other authors. 
+Any authorized user can add a recept to the "shopping list" and download the summary ingredients list as pdf file. 
 
 ## Getting Started
 
@@ -34,6 +39,10 @@ Othervise follow next steps:
 1. In project directory you need to create dot-env file with next variables:
 
 ```
+    # Django
+    SECRET_KEY=<your-secret-key>
+
+    # Postgres
     DB_ENGINE=django.db.backends.postgresql
     DB_NAME=postgres
     POSTGRES_USER=postgres
@@ -41,6 +50,8 @@ Othervise follow next steps:
     DB_HOST=db
     DB_PORT=5432
 ```
+
+If you want use Django in debug mode, just additionaly add `DEBUG=True`, otherwise don't specify it at all.
 
 2. Then create docker-compose.yaml file.
 
@@ -50,7 +61,7 @@ The project ('web') in 'service' should look like this:
   ...
 
   web:
-    image: ayztuva/yamdb:v0.1
+    image: vilagov/yamdb:latest
     volumes:
       - staticfiles:/code/static
     ports:
@@ -60,6 +71,8 @@ The project ('web') in 'service' should look like this:
     env_file: 
       - ./.env
 ```
+
+Also there is an ARM supported image available. Just use corresponding tag: `image: vilagov/yamdb:amr`
 
 3. Then finally create your nginx settings file and name it 'host.conf'.
 It should contain /static/ and /media/ locations.
@@ -91,4 +104,20 @@ Example:
     docker-compose up
 ```
 
-Now check your server address.
+Now you can check your server address.
+
+## Stack (back-end)
+
+* [Python 3.9](https://www.python.org/)
+* [Django 3](https://www.djangoproject.com/)
+* [Django REST](https://www.django-rest-framework.org/)
+* [Pillow 8](https://pillow.readthedocs.io/)
+* [PostgreSQL](https://www.postgresql.org/)
+
+## Author
+
+Evan Vilagov
+
+Linkedin: https://www.linkedin.com/in/vilagov/
+
+Email: evan.vilagov@gmail.com
