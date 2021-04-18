@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    """Custom user with permission level and unique username"""
+
     class Role(models.TextChoices):
         USER = 'USR', 'User'
         ADMIN = 'ADM', 'Admin'
@@ -26,6 +28,8 @@ class User(AbstractUser):
 
 
 class Follow(models.Model):
+    """Subscriptions between users"""
+
     author = models.ForeignKey(
         User, related_name='followers', on_delete=models.CASCADE)
     user = models.ForeignKey(

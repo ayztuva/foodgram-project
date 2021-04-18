@@ -13,7 +13,7 @@ services:
     env_file: ./.env
 
   web:
-    image: ayztuva/foodgram:latest
+    image: vilagov/foodgram:latest
     restart: always
     depends_on: 
       - db
