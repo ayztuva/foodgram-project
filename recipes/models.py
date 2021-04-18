@@ -5,6 +5,8 @@ User = get_user_model()
 
 
 class Ingredient(models.Model):
+    """Ingredient for recipes"""
+
     title = models.CharField(max_length=200)
     dimension = models.CharField(max_length=12)
 
@@ -15,6 +17,8 @@ class Ingredient(models.Model):
 
     @classmethod
     def fill(cls, ingredients):
+        """Allows to create Ingredient objects from given dict"""
+
         for obj in ingredients:
             ingredient, created = cls.objects.get_or_create(
                 title=obj.get('title'),
@@ -26,6 +30,8 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
+    """Recipe (can be tagged and must include at least one ingredient)"""
+
     title = models.CharField(max_length=200)
     author = models.ForeignKey(
         User,
@@ -53,6 +59,8 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
+    """Describes the amount of specific ingredient in recipe"""
+
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
@@ -63,12 +71,16 @@ class RecipeIngredient(models.Model):
 
 
 class Tag(models.Model):
+    """Tag for recipes"""
+
     class TagChoices(models.TextChoices):
         BREAKFAST = 'breakfast', 'Завтрак'
         LUNCH = 'lunch', 'Обед'
         DINNER = 'dinner', 'Ужин'
 
     class ColorChoices(models.TextChoices):
+        """Tag color (for css)"""
+
         GREEN = 'green', 'Зеленый'
         ORANGE = 'orange', 'Оранжевый'
         PURPLE = 'purple', 'Фиолетовый'
@@ -96,6 +108,8 @@ class Tag(models.Model):
 
 
 class Favorite(models.Model):
+    """User's favorite recipe"""
+
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
@@ -122,6 +136,8 @@ class Favorite(models.Model):
 
 
 class Purchase(models.Model):
+    """The recipe whose ingrediets user needs in his shopping list."""
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

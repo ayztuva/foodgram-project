@@ -2,6 +2,8 @@ from .models import Tag
 
 
 class TagContextMixin:
+    """Adding tags in context"""
+
     @property
     def extra_context(self):
         return {

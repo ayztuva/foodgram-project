@@ -29,6 +29,8 @@ User = get_user_model()
 
 
 class IndexView(TagContextMixin, BaseFilterView, ListView):
+    """Main page with all recipes"""
+
     model = Recipe
     template_name = 'recipes/index.html'
     paginate_by = 6
@@ -57,6 +59,8 @@ class IndexView(TagContextMixin, BaseFilterView, ListView):
 
 
 class FollowView(LoginRequiredMixin, ListView):
+    """List of following users"""
+
     model = User
     template_name = 'recipes/follow.html'
     paginate_by = 6
@@ -72,6 +76,8 @@ class FavoriteView(
         LoginRequiredMixin,
         BaseFilterView,
         ListView):
+    """User favorite recipes"""
+
     model = Recipe
     template_name = 'recipes/favorites.html'
     paginate_by = 6
@@ -83,6 +89,8 @@ class FavoriteView(
 
 
 class ProfileView(TagContextMixin, BaseFilterView, ListView):
+    """Profile page"""
+
     model = Recipe
     template_name = 'recipes/profile.html'
     paginate_by = 6
@@ -110,11 +118,15 @@ class ProfileView(TagContextMixin, BaseFilterView, ListView):
 
 
 class RecipeView(DetailView):
+    """Page with specific recipe"""
+
     model = Recipe
     template_name = 'recipes/recipe.html'
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
+    """Create new recipe"""
+
     model = Recipe
     template_name = 'recipes/add_recipe.html'
     form_class = RecipeForm
@@ -126,6 +138,8 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 
 class RecipeUpdateView(LoginRequiredMixin, AdminAuthorPermission, UpdateView):
+    """Edit recipe"""
+
     model = Recipe
     template_name = 'recipes/add_recipe.html'
     form_class = RecipeForm
@@ -133,11 +147,15 @@ class RecipeUpdateView(LoginRequiredMixin, AdminAuthorPermission, UpdateView):
 
 
 class RecipeDeleteView(LoginRequiredMixin, AdminAuthorPermission, DeleteView):
+    """Delete recipe"""
+
     model = Recipe
     success_url = reverse_lazy('recipes:purchases')
 
 
 class PurchaseView(LoginRequiredMixin, ListView):
+    """User's purchase page with chosen recipes"""
+
     model = Recipe
     template_name = 'recipes/purchases.html'
 
@@ -147,6 +165,8 @@ class PurchaseView(LoginRequiredMixin, ListView):
 
 
 class DownloadPurchasesListView(View):
+    """Download shopping list"""
+
     def get(self, request, *args, **kwargs):
         pdf = generate_pdf(request.user)
 

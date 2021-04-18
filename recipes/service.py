@@ -8,6 +8,8 @@ from .models import Ingredient, Recipe, RecipeIngredient
 
 
 def add_ingredients_to_recipe(recipe, ingredients):
+    """Fill given recipe with ingredients"""
+
     Recipe.ingredients.through.objects.bulk_create(
         [
             Recipe.ingredients.through(
@@ -23,6 +25,8 @@ def add_ingredients_to_recipe(recipe, ingredients):
 
 
 def generate_pdf(user):
+    """Generate pdf file with ingredients and return it to user"""
+
     buffer = io.BytesIO()
     canvas = Canvas(buffer, bottomup=0)
 
