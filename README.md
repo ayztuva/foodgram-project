@@ -1,5 +1,5 @@
 # Foodgram
-![Foodgram CI](https://github.com/vilagov/foodgram-project/workflows/Foodgram%20CI/badge.svg)
+![Foodgram CI](https://github.com/vilagov/foodgram/workflows/Foodgram%20CI/badge.svg)
 
 ## Description
 
