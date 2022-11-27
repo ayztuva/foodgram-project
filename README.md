@@ -1,5 +1,5 @@
 # Foodgram
-![Foodgram CI](https://github.com/vilagov/foodgram/workflows/Foodgram%20CI/badge.svg)
+![Foodgram CI](https://github.com/vesmirov/foodgram/workflows/Foodgram%20CI/badge.svg)
 
 ## Description
 
@@ -61,7 +61,7 @@ The project ('web') in 'service' should look like this:
   ...
 
   web:
-    image: vilagov/yamdb:latest
+    image: user/yamdb:latest
     volumes:
       - staticfiles:/code/static
     ports:
@@ -72,7 +72,7 @@ The project ('web') in 'service' should look like this:
       - ./.env
 ```
 
-Also there is an ARM supported image available. Just use corresponding tag: `image: vilagov/yamdb:amr`
+Also an ARM supported image available. Just use corresponding tag: `image: vesmirov/yamdb:amr`
 
 3. Then finally create your nginx settings file and name it 'host.conf'.
 It should contain /static/ and /media/ locations.
@@ -116,8 +116,8 @@ Now you can check your server address.
 
 ## Author
 
-Evan Vilagov
+Evan Vesmirov
 
-Linkedin: https://www.linkedin.com/in/vilagov/
+Linkedin: https://www.linkedin.com/in/vesmirov/
 
-Email: evan.vilagov@gmail.com
+Email: evan.vesmirov@proton.me
